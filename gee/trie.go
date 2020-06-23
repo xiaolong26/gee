@@ -14,7 +14,6 @@ func (n *node) insert(pattern string, parts []string, height int) {
 		n.pattern = pattern
 		return
 	}
-
 	part := parts[height]
 	child := n.matchChild(part)
 	if child == nil {
@@ -23,7 +22,7 @@ func (n *node) insert(pattern string, parts []string, height int) {
 	}
 	child.insert(pattern, parts, height+1)
 }
-
+//判断该节点有无这个part的子节点
 func (n *node)matchChild(part string)*node{
 	for _,child := range n.children{
 		if child.part == part || child.isWild{
@@ -32,7 +31,7 @@ func (n *node)matchChild(part string)*node{
 	}
 	return nil
 }
-
+//将part相同的node组成数组
 func (n *node)matchChildren(part string)[]*node  {
 	nodes := make([]*node,0)
 	for _,child := range n.children{
@@ -42,7 +41,7 @@ func (n *node)matchChildren(part string)[]*node  {
 	}
 	return nodes
 }
-
+//查询节点
 func (n *node) search(parts []string, height int) *node {
 	if len(parts) == height || strings.HasPrefix(n.part, "*") {
 		if n.pattern == "" {
